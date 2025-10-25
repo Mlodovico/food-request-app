@@ -9,8 +9,13 @@ import { InMemoryFoodRequestRepository } from '@infrastructure/adapters/in-memor
 import { InMemoryFoodItemRepository } from '@infrastructure/adapters/in-memory-food-item-repository';
 import { FoodRequestRepository } from '@domain/repositories/food-request-repository';
 import { FoodItemRepository } from '@domain/repositories/food-item-repository';
+import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { throttlerConfig } from "@infrastructure/middleware/throttler.config";
+import { APP_GUARD } from "@nestjs/core";
+
 
 @Module({
+  imports: [ThrottlerModule.forRoot(throttlerConfig)],
   controllers: [FoodRequestController, FoodItemController],
   providers: [
     // Use Cases
@@ -18,25 +23,29 @@ import { FoodItemRepository } from '@domain/repositories/food-item-repository';
     GetFoodRequestUseCase,
     UpdateFoodRequestStatusUseCase,
     FoodItemService,
-    
+
     // Repository implementations
     {
-      provide: 'FoodRequestRepository',
+      provide: "FoodRequestRepository",
       useClass: InMemoryFoodRequestRepository,
     },
     {
-      provide: 'FoodItemRepository',
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+    {
+      provide: "FoodItemRepository",
       useClass: InMemoryFoodItemRepository,
     },
-    
+
     // Repository interfaces
     {
-      provide: 'FoodRequestRepositoryInterface',
-      useExisting: 'FoodRequestRepository',
+      provide: "FoodRequestRepositoryInterface",
+      useExisting: "FoodRequestRepository",
     },
     {
-      provide: 'FoodItemRepositoryInterface',
-      useExisting: 'FoodItemRepository',
+      provide: "FoodItemRepositoryInterface",
+      useExisting: "FoodItemRepository",
     },
   ],
 })

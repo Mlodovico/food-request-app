@@ -8,12 +8,12 @@ export const throttlerConfig = ThrottlerConfig.forRoot([
     },
     {
         name: 'medium',
-        ttl: 10000,
-        limit: 100,
+        ttl: 1000,
+        limit: 30,
     },
     {
         name: 'long',
         ttl: 100000,
-        limit: 1000,
+        limit: 60,
     }
 ])
