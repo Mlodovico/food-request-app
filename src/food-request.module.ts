@@ -11,8 +11,9 @@ import { FoodRequestRepository } from '@domain/repositories/food-request-reposit
 import { FoodItemRepository } from '@domain/repositories/food-item-repository';
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { throttlerConfig } from "@infrastructure/middleware/throttler.config";
-import { APP_GUARD } from "@nestjs/core";
-
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { CircuitBreakerService } from "@infrastructure/service/circuit-breaker.service";
+import { CircuitBreakerInterceptor } from "@infrastructure/interceptors/circuit-breaker.interceptor";
 
 @Module({
   imports: [ThrottlerModule.forRoot(throttlerConfig)],
@@ -23,6 +24,19 @@ import { APP_GUARD } from "@nestjs/core";
     GetFoodRequestUseCase,
     UpdateFoodRequestStatusUseCase,
     FoodItemService,
+
+    // Circuit Breaker
+    CircuitBreakerService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CircuitBreakerInterceptor,
+    },
+
+    // Rate Limiter
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
 
     // Repository implementations
     {
