@@ -5,6 +5,7 @@ import { CreateFoodRequestUseCase } from '@application/use-cases/create-food-req
 import { GetFoodRequestUseCase } from '@application/use-cases/get-food-request.use-case';
 import { UpdateFoodRequestStatusUseCase } from '@application/use-cases/update-food-request-status.use-case';
 import { Throttle } from "@nestjs/throttler";
+import { CircuitBreaker } from "@infrastructure/decorator/circuit-breaker.interceptor";
 
 @Controller("food-requests")
 export class FoodRequestController {
@@ -15,6 +16,7 @@ export class FoodRequestController {
   ) {}
 
   @Post()
+  @CircuitBreaker("write")
   @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.CREATED)
   async createFoodRequest(
@@ -34,6 +36,7 @@ export class FoodRequestController {
   }
 
   @Get(":id")
+  @CircuitBreaker("read")
   @Throttle({ long: { limit: 60, ttl: 1000 } })
   async getFoodRequestById(
     @Param("id") id: string
@@ -48,7 +51,8 @@ export class FoodRequestController {
   }
 
   @Get("customer/:customerId")
-  @Throttle({ long: { limit: 60, ttl: 1000 } })
+  @CircuitBreaker("read")
+  @Throttle({ medium: { limit: 20, ttl: 1000 } })
   async getFoodRequestsByCustomerId(
     @Param("customerId") customerId: string
   ): Promise<FoodRequestResponseDto[]> {
@@ -59,6 +63,8 @@ export class FoodRequestController {
   }
 
   @Put(":id/approve")
+  @CircuitBreaker("update")
+  @Throttle({ short: { limit: 3, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async approveFoodRequest(@Param("id") id: string): Promise<void> {
     try {
@@ -69,6 +75,8 @@ export class FoodRequestController {
   }
 
   @Put(":id/reject")
+  @CircuitBreaker("delete")
+  @Throttle({ short: { limit: 3, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async rejectFoodRequest(@Param("id") id: string): Promise<void> {
     try {
@@ -79,6 +87,8 @@ export class FoodRequestController {
   }
 
   @Put(":id/fulfill")
+  @CircuitBreaker("update")
+  @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async fulfillFoodRequest(@Param("id") id: string): Promise<void> {
     try {
@@ -89,6 +99,8 @@ export class FoodRequestController {
   }
 
   @Put(":id/cancel")
+  @CircuitBreaker("delete")
+  @Throttle({ short: { limit: 6, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async cancelFoodRequest(@Param("id") id: string): Promise<void> {
     try {
