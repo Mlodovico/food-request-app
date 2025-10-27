@@ -6,18 +6,17 @@ import { GetFoodRequestUseCase } from '@application/use-cases/get-food-request.u
 import { UpdateFoodRequestStatusUseCase } from '@application/use-cases/update-food-request-status.use-case';
 import { FoodItemService } from '@application/use-cases/food-item.service';
 import { InMemoryFoodRequestRepository } from '@infrastructure/adapters/in-memory-food-request-repository';
-import { InMemoryFoodItemRepository } from '@infrastructure/adapters/in-memory-food-item-repository';
-import { FoodRequestRepository } from '@domain/repositories/food-request-repository';
-import { FoodItemRepository } from '@domain/repositories/food-item-repository';
+import { InMemoryFoodItemRepository } from "@infrastructure/adapters/in-memory-food-item-repository";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { throttlerConfig } from "@infrastructure/middleware/throttler.config";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { CircuitBreakerService } from "@infrastructure/service/circuit-breaker.service";
 import { CircuitBreakerInterceptor } from "@infrastructure/interceptors/circuit-breaker.interceptor";
+import { HealthController } from "@presentation/controllers/health.controller";
 
 @Module({
   imports: [ThrottlerModule.forRoot(throttlerConfig)],
-  controllers: [FoodRequestController, FoodItemController],
+  controllers: [FoodRequestController, FoodItemController, HealthController],
   providers: [
     // Use Cases
     CreateFoodRequestUseCase,
@@ -42,10 +41,6 @@ import { CircuitBreakerInterceptor } from "@infrastructure/interceptors/circuit-
     {
       provide: "FoodRequestRepository",
       useClass: InMemoryFoodRequestRepository,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
     },
     {
       provide: "FoodItemRepository",

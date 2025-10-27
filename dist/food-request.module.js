@@ -16,32 +16,48 @@ const update_food_request_status_use_case_1 = require("./application/use-cases/u
 const food_item_service_1 = require("./application/use-cases/food-item.service");
 const in_memory_food_request_repository_1 = require("./infrastructure/adapters/in-memory-food-request-repository");
 const in_memory_food_item_repository_1 = require("./infrastructure/adapters/in-memory-food-item-repository");
+const throttler_1 = require("@nestjs/throttler");
+const throttler_config_1 = require("./infrastructure/middleware/throttler.config");
+const core_1 = require("@nestjs/core");
+const circuit_breaker_service_1 = require("./infrastructure/service/circuit-breaker.service");
+const circuit_breaker_interceptor_1 = require("./infrastructure/interceptors/circuit-breaker.interceptor");
+const health_controller_1 = require("./presentation/controllers/health.controller");
 let FoodRequestModule = class FoodRequestModule {
 };
 exports.FoodRequestModule = FoodRequestModule;
 exports.FoodRequestModule = FoodRequestModule = __decorate([
     (0, common_1.Module)({
-        controllers: [food_request_controller_1.FoodRequestController, food_item_controller_1.FoodItemController],
+        imports: [throttler_1.ThrottlerModule.forRoot(throttler_config_1.throttlerConfig)],
+        controllers: [food_request_controller_1.FoodRequestController, food_item_controller_1.FoodItemController, health_controller_1.HealthController],
         providers: [
             create_food_request_use_case_1.CreateFoodRequestUseCase,
             get_food_request_use_case_1.GetFoodRequestUseCase,
             update_food_request_status_use_case_1.UpdateFoodRequestStatusUseCase,
             food_item_service_1.FoodItemService,
+            circuit_breaker_service_1.CircuitBreakerService,
             {
-                provide: 'FoodRequestRepository',
+                provide: core_1.APP_INTERCEPTOR,
+                useClass: circuit_breaker_interceptor_1.CircuitBreakerInterceptor,
+            },
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
+            {
+                provide: "FoodRequestRepository",
                 useClass: in_memory_food_request_repository_1.InMemoryFoodRequestRepository,
             },
             {
-                provide: 'FoodItemRepository',
+                provide: "FoodItemRepository",
                 useClass: in_memory_food_item_repository_1.InMemoryFoodItemRepository,
             },
             {
-                provide: 'FoodRequestRepositoryInterface',
-                useExisting: 'FoodRequestRepository',
+                provide: "FoodRequestRepositoryInterface",
+                useExisting: "FoodRequestRepository",
             },
             {
-                provide: 'FoodItemRepositoryInterface',
-                useExisting: 'FoodItemRepository',
+                provide: "FoodItemRepositoryInterface",
+                useExisting: "FoodItemRepository",
             },
         ],
     })
