@@ -20,6 +20,7 @@ const request_id_1 = require("../../domain/value-objects/request-id");
 const food_item_id_1 = require("../../domain/value-objects/food-item-id");
 const quantity_1 = require("../../domain/value-objects/quantity");
 const food_request_status_1 = require("../../domain/value-objects/food-request-status");
+const food_item_service_1 = require("./food-item.service");
 let CreateFoodRequestUseCase = class CreateFoodRequestUseCase {
     constructor(foodRequestRepository, foodItemService) {
         this.foodRequestRepository = foodRequestRepository;
@@ -28,10 +29,10 @@ let CreateFoodRequestUseCase = class CreateFoodRequestUseCase {
     async createFoodRequest(customerId, items, notes) {
         const isValid = await this.foodItemService.validateFoodItems(items);
         if (!isValid) {
-            throw new Error('One or more food items are invalid');
+            throw new Error("One or more food items are invalid");
         }
         const totalAmount = await this.foodItemService.calculateTotalAmount(items);
-        const foodRequestItems = items.map(item => new food_request_item_1.FoodRequestItem(new food_item_id_1.FoodItemId(item.foodItemId), new quantity_1.Quantity(item.quantity), item.specialInstructions));
+        const foodRequestItems = items.map((item) => new food_request_item_1.FoodRequestItem(new food_item_id_1.FoodItemId(item.foodItemId), new quantity_1.Quantity(item.quantity), item.specialInstructions));
         const requestId = new request_id_1.RequestId(this.generateRequestId());
         const foodRequest = new food_request_1.FoodRequest(requestId, customerId, foodRequestItems, food_request_status_1.FoodRequestStatus.PENDING, new Date(), new Date(), totalAmount, notes);
         await this.foodRequestRepository.save(foodRequest);
@@ -44,7 +45,7 @@ let CreateFoodRequestUseCase = class CreateFoodRequestUseCase {
 exports.CreateFoodRequestUseCase = CreateFoodRequestUseCase;
 exports.CreateFoodRequestUseCase = CreateFoodRequestUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('FoodRequestRepository')),
-    __metadata("design:paramtypes", [Object, Object])
+    __param(0, (0, common_1.Inject)("FoodRequestRepository")),
+    __metadata("design:paramtypes", [Object, food_item_service_1.FoodItemService])
 ], CreateFoodRequestUseCase);
 //# sourceMappingURL=create-food-request.use-case.js.map
