@@ -14,9 +14,9 @@ export class HealthController {
     const circuitBreakerMap = circuitBreakers; // circuitBreakers is already a Map
     circuitBreakerMap.forEach((cb, name) => {
       status[name] = {
-        state: cb.state.name,
+        state: cb.status,
         stats: cb.stats,
-        options: cb.options,
+        options: (cb as any)._options,
       };
     });
 

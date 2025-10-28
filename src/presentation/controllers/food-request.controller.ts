@@ -15,7 +15,7 @@ export class FoodRequestController {
     private readonly updateFoodRequestStatusUseCase: UpdateFoodRequestStatusUseCase
   ) {}
 
-  @Post()
+  @Post("order")
   @CircuitBreaker("write")
   @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.CREATED)

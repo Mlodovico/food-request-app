@@ -1,16 +1,16 @@
 import { Injectable, Logger } from "@nestjs/common";
-import CircuitBreaker from "opossum";
-
+const CircuitBreaker = require("opossum");
 @Injectable()
 export class CircuitBreakerService {
   private readonly logger = new Logger(CircuitBreakerService.name);
-  private circuitBreakers: Map<string, CircuitBreaker> = new Map();
+  private circuitBreakers: Map<string, InstanceType<typeof CircuitBreaker>> =
+    new Map();
 
   createCircuitBreaker(
     name: string,
-    operation: Function,
+    operation: (...args: unknown[]) => Promise<unknown>,
     operationType?: "read" | "write" | "delete" | "update"
-  ): CircuitBreaker {
+  ): InstanceType<typeof CircuitBreaker> {
     const config = this.getConfigByOperationType(operationType);
 
     const circuitBreaker = new CircuitBreaker(operation, config);
@@ -22,52 +22,52 @@ export class CircuitBreakerService {
   }
 
   private getConfigByOperationType(type?: string) {
-     const baseConfig = {
-       rollingCountTimeout: 10000,
-       rollingCountBuckets: 10,
-     };
+    const baseConfig = {
+      rollingCountTimeout: 10000,
+      rollingCountBuckets: 10,
+    };
 
-     switch (type) {
-       case "read":
-         return {
-           ...baseConfig,
-           timeout: 2000, // Leitura rápida
-           errorThresholdPercentage: 40, // Mais tolerante a falhas temporárias
-           resetTimeout: 15000, // Recuperação rápida
-         };
-       case "write":
-         return {
-           ...baseConfig,
-           timeout: 5000, // Escrita pode demorar mais
-           errorThresholdPercentage: 60, // Mais tolerante a erros
-           resetTimeout: 30000, // Recuperação mais lenta
-         };
-       case "update":
-         return {
-           ...baseConfig,
-           timeout: 4000, // Atualização moderada
-           errorThresholdPercentage: 55, // Moderadamente tolerante
-           resetTimeout: 25000, // Recuperação moderada
-         };
-       case "delete":
-         return {
-           ...baseConfig,
-           timeout: 3000, // Deleção rápida
-           errorThresholdPercentage: 50, // Moderadamente tolerante
-           resetTimeout: 20000, // Recuperação moderada
-         };
-       default:
-         return {
-           ...baseConfig,
-           timeout: 3000,
-           errorThresholdPercentage: 50,
-           resetTimeout: 30000,
-         };
-     }
+    switch (type) {
+      case "read":
+        return {
+          ...baseConfig,
+          timeout: 2000, // Leitura rápida
+          errorThresholdPercentage: 40, // Mais tolerante a falhas temporárias
+          resetTimeout: 15000, // Recuperação rápida
+        };
+      case "write":
+        return {
+          ...baseConfig,
+          timeout: 5000, // Escrita pode demorar mais
+          errorThresholdPercentage: 60, // Mais tolerante a erros
+          resetTimeout: 30000, // Recuperação mais lenta
+        };
+      case "update":
+        return {
+          ...baseConfig,
+          timeout: 4000, // Atualização moderada
+          errorThresholdPercentage: 55, // Moderadamente tolerante
+          resetTimeout: 25000, // Recuperação moderada
+        };
+      case "delete":
+        return {
+          ...baseConfig,
+          timeout: 3000, // Deleção rápida
+          errorThresholdPercentage: 50, // Moderadamente tolerante
+          resetTimeout: 20000, // Recuperação moderada
+        };
+      default:
+        return {
+          ...baseConfig,
+          timeout: 3000,
+          errorThresholdPercentage: 50,
+          resetTimeout: 30000,
+        };
+    }
   }
 
   private setupCircuitBreakerEvents(
-    circuitBreaker: CircuitBreaker,
+    circuitBreaker: typeof CircuitBreaker.prototype,
     name: string
   ): void {
     circuitBreaker.on("open", () => {
@@ -91,11 +91,11 @@ export class CircuitBreakerService {
     });
   }
 
-  getCircuitBreaker(name: string): CircuitBreaker | undefined {
+  getCircuitBreaker(name: string) {
     return this.circuitBreakers.get(name);
   }
 
-  getAllCircuitBreakers(): Map<string, CircuitBreaker> {
+  getAllCircuitBreakers() {
     return this.circuitBreakers;
   }
 }

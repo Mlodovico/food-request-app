@@ -22,9 +22,9 @@ let HealthController = class HealthController {
         const circuitBreakerMap = circuitBreakers;
         circuitBreakerMap.forEach((cb, name) => {
             status[name] = {
-                state: cb.state.name,
+                state: cb.status,
                 stats: cb.stats,
-                options: cb.options,
+                options: cb._options,
             };
         });
         return status;

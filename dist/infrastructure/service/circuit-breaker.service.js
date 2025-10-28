@@ -9,7 +9,7 @@ var CircuitBreakerService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CircuitBreakerService = void 0;
 const common_1 = require("@nestjs/common");
-const opossum_1 = require("opossum");
+const CircuitBreaker = require("opossum");
 let CircuitBreakerService = CircuitBreakerService_1 = class CircuitBreakerService {
     constructor() {
         this.logger = new common_1.Logger(CircuitBreakerService_1.name);
@@ -17,7 +17,7 @@ let CircuitBreakerService = CircuitBreakerService_1 = class CircuitBreakerServic
     }
     createCircuitBreaker(name, operation, operationType) {
         const config = this.getConfigByOperationType(operationType);
-        const circuitBreaker = new opossum_1.default(operation, config);
+        const circuitBreaker = new CircuitBreaker(operation, config);
         this.setupCircuitBreakerEvents(circuitBreaker, name);
         this.circuitBreakers.set(name, circuitBreaker);
         return circuitBreaker;

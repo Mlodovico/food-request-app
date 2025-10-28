@@ -88,7 +88,7 @@ let FoodRequestController = class FoodRequestController {
 };
 exports.FoodRequestController = FoodRequestController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)("order"),
     (0, circuit_breaker_interceptor_1.CircuitBreaker)("write"),
     (0, throttler_1.Throttle)({ short: { limit: 5, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
