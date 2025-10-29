@@ -27,6 +27,7 @@ let PostgresFoodRequestRepository = class PostgresFoodRequestRepository {
             password: process.env.DB_PASSWORD || "food_password",
         });
     }
+
     async save(foodRequest) {
         const client = await this.pool.connect();
         try {
@@ -70,6 +71,7 @@ let PostgresFoodRequestRepository = class PostgresFoodRequestRepository {
             client.release();
         }
     }
+
     async findById(id) {
         const query = `
       SELECT 
@@ -95,6 +97,7 @@ let PostgresFoodRequestRepository = class PostgresFoodRequestRepository {
             .map((row) => new food_request_item_1.FoodRequestItem(new food_item_id_1.FoodItemId(row.food_item_id), new quantity_1.Quantity(row.quantity), row.special_instructions));
         return new food_request_1.FoodRequest(new request_id_1.RequestId(requestData.id), requestData.customer_id, items, requestData.status, requestData.created_at, requestData.updated_at, requestData.total_amount, requestData.notes);
     }
+
     async findByCustomerId(customerId) {
         const query = "SELECT id FROM food_requests WHERE customer_id = $1 ORDER BY created_at DESC";
         const result = await this.pool.query(query, [customerId]);
@@ -107,6 +110,7 @@ let PostgresFoodRequestRepository = class PostgresFoodRequestRepository {
         }
         return requests;
     }
+
     async findByStatus(status) {
         const query = "SELECT id FROM food_requests WHERE status = $1 ORDER BY created_at DESC";
         const result = await this.pool.query(query, [status]);
@@ -119,6 +123,7 @@ let PostgresFoodRequestRepository = class PostgresFoodRequestRepository {
         }
         return requests;
     }
+    
     async findAll() {
         const query = "SELECT id FROM food_requests ORDER BY created_at DESC";
         const result = await this.pool.query(query);

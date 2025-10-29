@@ -98,7 +98,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FoodRequestController.prototype, "createFoodRequest", null);
 __decorate([
-    (0, common_1.Get)(":id"),
+    (0, common_1.Get)("get-order/:id"),
     (0, circuit_breaker_interceptor_1.CircuitBreaker)("read"),
     (0, throttler_1.Throttle)({ long: { limit: 60, ttl: 1000 } }),
     __param(0, (0, common_1.Param)("id")),

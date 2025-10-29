@@ -35,7 +35,7 @@ export class FoodRequestController {
     }
   }
 
-  @Get(":id")
+  @Get("get-order/:id")
   @CircuitBreaker("read")
   @Throttle({ long: { limit: 60, ttl: 1000 } })
   async getFoodRequestById(
