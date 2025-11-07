@@ -16,7 +16,6 @@ export class FoodRequestController {
   ) {}
 
   @Post("order")
-  @CircuitBreaker("write")
   @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.CREATED)
   async createFoodRequest(
@@ -36,7 +35,6 @@ export class FoodRequestController {
   }
 
   @Get("get-order/:id")
-  @CircuitBreaker("read")
   @Throttle({ long: { limit: 60, ttl: 1000 } })
   async getFoodRequestById(
     @Param("id") id: string
@@ -51,7 +49,6 @@ export class FoodRequestController {
   }
 
   @Get("customer/:customerId")
-  @CircuitBreaker("read")
   @Throttle({ medium: { limit: 20, ttl: 1000 } })
   async getFoodRequestsByCustomerId(
     @Param("customerId") customerId: string
@@ -63,7 +60,6 @@ export class FoodRequestController {
   }
 
   @Put(":id/approve")
-  @CircuitBreaker("update")
   @Throttle({ short: { limit: 3, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async approveFoodRequest(@Param("id") id: string): Promise<void> {
@@ -75,7 +71,6 @@ export class FoodRequestController {
   }
 
   @Put(":id/reject")
-  @CircuitBreaker("delete")
   @Throttle({ short: { limit: 3, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async rejectFoodRequest(@Param("id") id: string): Promise<void> {
@@ -87,7 +82,6 @@ export class FoodRequestController {
   }
 
   @Put(":id/fulfill")
-  @CircuitBreaker("update")
   @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async fulfillFoodRequest(@Param("id") id: string): Promise<void> {
@@ -99,7 +93,6 @@ export class FoodRequestController {
   }
 
   @Put(":id/cancel")
-  @CircuitBreaker("delete")
   @Throttle({ short: { limit: 6, ttl: 1000 } })
   @HttpCode(HttpStatus.NO_CONTENT)
   async cancelFoodRequest(@Param("id") id: string): Promise<void> {

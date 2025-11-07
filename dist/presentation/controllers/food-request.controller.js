@@ -20,7 +20,6 @@ const create_food_request_use_case_1 = require("../../application/use-cases/crea
 const get_food_request_use_case_1 = require("../../application/use-cases/get-food-request.use-case");
 const update_food_request_status_use_case_1 = require("../../application/use-cases/update-food-request-status.use-case");
 const throttler_1 = require("@nestjs/throttler");
-const circuit_breaker_interceptor_1 = require("../../infrastructure/decorator/circuit-breaker.interceptor");
 let FoodRequestController = class FoodRequestController {
     constructor(createFoodRequestUseCase, getFoodRequestUseCase, updateFoodRequestStatusUseCase) {
         this.createFoodRequestUseCase = createFoodRequestUseCase;
@@ -89,7 +88,6 @@ let FoodRequestController = class FoodRequestController {
 exports.FoodRequestController = FoodRequestController;
 __decorate([
     (0, common_1.Post)("order"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("write"),
     (0, throttler_1.Throttle)({ short: { limit: 5, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
@@ -99,7 +97,6 @@ __decorate([
 ], FoodRequestController.prototype, "createFoodRequest", null);
 __decorate([
     (0, common_1.Get)("get-order/:id"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("read"),
     (0, throttler_1.Throttle)({ long: { limit: 60, ttl: 1000 } }),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
@@ -108,7 +105,6 @@ __decorate([
 ], FoodRequestController.prototype, "getFoodRequestById", null);
 __decorate([
     (0, common_1.Get)("customer/:customerId"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("read"),
     (0, throttler_1.Throttle)({ medium: { limit: 20, ttl: 1000 } }),
     __param(0, (0, common_1.Param)("customerId")),
     __metadata("design:type", Function),
@@ -117,7 +113,6 @@ __decorate([
 ], FoodRequestController.prototype, "getFoodRequestsByCustomerId", null);
 __decorate([
     (0, common_1.Put)(":id/approve"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("update"),
     (0, throttler_1.Throttle)({ short: { limit: 3, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Param)("id")),
@@ -127,7 +122,6 @@ __decorate([
 ], FoodRequestController.prototype, "approveFoodRequest", null);
 __decorate([
     (0, common_1.Put)(":id/reject"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("delete"),
     (0, throttler_1.Throttle)({ short: { limit: 3, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Param)("id")),
@@ -137,7 +131,6 @@ __decorate([
 ], FoodRequestController.prototype, "rejectFoodRequest", null);
 __decorate([
     (0, common_1.Put)(":id/fulfill"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("update"),
     (0, throttler_1.Throttle)({ short: { limit: 5, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Param)("id")),
@@ -147,7 +140,6 @@ __decorate([
 ], FoodRequestController.prototype, "fulfillFoodRequest", null);
 __decorate([
     (0, common_1.Put)(":id/cancel"),
-    (0, circuit_breaker_interceptor_1.CircuitBreaker)("delete"),
     (0, throttler_1.Throttle)({ short: { limit: 6, ttl: 1000 } }),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     __param(0, (0, common_1.Param)("id")),
