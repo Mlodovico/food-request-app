@@ -6,13 +6,7 @@ import { FoodItemId } from "@domain/value-objects/food-item-id";
 import { Quantity } from "@domain/value-objects/quantity";
 import { FoodRequestStatus } from "@domain/value-objects/food-request-status";
 import { FoodRequestRepository } from "@domain/repositories/food-request-repository";
-import { FoodItemRepository } from "@domain/repositories/food-item-repository";
-import {
-  CreateFoodRequestPort,
-  GetFoodRequestPort,
-  UpdateFoodRequestStatusPort,
-  FoodItemServicePort,
-} from "../ports/food-request.ports";
+import { CreateFoodRequestPort } from "../ports/food-request.ports";
 import { FoodItemService } from "@application/use-cases/food-item.service";
 
 @Injectable()

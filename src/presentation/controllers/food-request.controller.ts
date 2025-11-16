@@ -5,7 +5,6 @@ import { CreateFoodRequestUseCase } from '@application/use-cases/create-food-req
 import { GetFoodRequestUseCase } from '@application/use-cases/get-food-request.use-case';
 import { UpdateFoodRequestStatusUseCase } from '@application/use-cases/update-food-request-status.use-case';
 import { Throttle } from "@nestjs/throttler";
-import { CircuitBreaker } from "@infrastructure/decorator/circuit-breaker.interceptor";
 
 @Controller("food-requests")
 export class FoodRequestController {
