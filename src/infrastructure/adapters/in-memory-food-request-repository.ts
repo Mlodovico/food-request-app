@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { FoodRequest } from '@domain/entities/food-request';
-import { RequestId } from '@domain/value-objects/request-id';
-import { FoodRequestStatus } from '@domain/value-objects/food-request-status';
-import { FoodRequestRepository } from '@domain/repositories/food-request-repository';
+import { Injectable } from "@nestjs/common";
+import { FoodRequest } from "@domain/entities/food-request";
+import { RequestId } from "@domain/value-objects/request-id";
+import { FoodRequestStatus } from "@domain/value-objects/food-request-status";
+import { FoodRequestRepository } from "@domain/repositories/food-request-repository";
 
 @Injectable()
 export class InMemoryFoodRequestRepository implements FoodRequestRepository {
@@ -17,13 +17,15 @@ export class InMemoryFoodRequestRepository implements FoodRequestRepository {
   }
 
   async findByCustomerId(customerId: string): Promise<FoodRequest[]> {
-    return Array.from(this.foodRequests.values())
-      .filter(request => request.getCustomerId() === customerId);
+    return Array.from(this.foodRequests.values()).filter(
+      (request) => request.getCustomerId() === customerId,
+    );
   }
 
   async findByStatus(status: FoodRequestStatus): Promise<FoodRequest[]> {
-    return Array.from(this.foodRequests.values())
-      .filter(request => request.getStatus() === status);
+    return Array.from(this.foodRequests.values()).filter(
+      (request) => request.getStatus() === status,
+    );
   }
 
   async findAll(): Promise<FoodRequest[]> {

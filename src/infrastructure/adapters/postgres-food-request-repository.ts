@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { FoodRequest } from '@domain/entities/food-request';
-import { RequestId } from '@domain/value-objects/request-id';
-import { FoodRequestStatus } from '@domain/value-objects/food-request-status';
-import { FoodRequestRepository } from '@domain/repositories/food-request-repository';
-import { Pool } from 'pg';
+import { Injectable } from "@nestjs/common";
+import { FoodRequest } from "@domain/entities/food-request";
+import { RequestId } from "@domain/value-objects/request-id";
+import { FoodRequestStatus } from "@domain/value-objects/food-request-status";
+import { FoodRequestRepository } from "@domain/repositories/food-request-repository";
+import { Pool } from "pg";
 import { FoodRequestItem } from "@domain/entities/food-request-item";
 import { FoodItemId } from "@domain/value-objects/food-item-id";
 import { Quantity } from "@domain/value-objects/quantity";
@@ -50,7 +50,7 @@ export class PostgresFoodRequestRepository implements FoodRequestRepository {
       // Delete existing items
       await client.query(
         "DELETE FROM food_request_items WHERE food_request_id = $1",
-        [foodRequest.getId().getValue()]
+        [foodRequest.getId().getValue()],
       );
 
       // Insert new items
@@ -108,8 +108,8 @@ export class PostgresFoodRequestRepository implements FoodRequestRepository {
           new FoodRequestItem(
             new FoodItemId(row.food_item_id),
             new Quantity(row.quantity),
-            row.special_instructions
-          )
+            row.special_instructions,
+          ),
       );
 
     // Create FoodRequest entity (you'll need to adapt this based on your entity constructor)
@@ -121,7 +121,7 @@ export class PostgresFoodRequestRepository implements FoodRequestRepository {
       requestData.created_at,
       requestData.updated_at,
       requestData.total_amount,
-      requestData.notes
+      requestData.notes,
     );
   }
 

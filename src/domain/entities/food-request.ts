@@ -1,6 +1,6 @@
-import { RequestId } from '../value-objects/request-id';
-import { FoodRequestStatus } from '../value-objects/food-request-status';
-import { FoodRequestItem } from './food-request-item';
+import { RequestId } from "../value-objects/request-id";
+import { FoodRequestStatus } from "../value-objects/food-request-status";
+import { FoodRequestItem } from "./food-request-item";
 
 export class FoodRequest {
   constructor(
@@ -11,16 +11,16 @@ export class FoodRequest {
     private readonly createdAt: Date,
     private updatedAt: Date,
     private readonly totalAmount: number,
-    private notes?: string
+    private notes?: string,
   ) {
     if (!customerId || customerId.trim().length === 0) {
-      throw new Error('Customer ID cannot be empty');
+      throw new Error("Customer ID cannot be empty");
     }
     if (!items || items.length === 0) {
-      throw new Error('Food request must have at least one item');
+      throw new Error("Food request must have at least one item");
     }
     if (totalAmount < 0) {
-      throw new Error('Total amount cannot be negative');
+      throw new Error("Total amount cannot be negative");
     }
   }
 
@@ -58,7 +58,7 @@ export class FoodRequest {
 
   approve(): void {
     if (this.status !== FoodRequestStatus.PENDING) {
-      throw new Error('Only pending requests can be approved');
+      throw new Error("Only pending requests can be approved");
     }
     this.status = FoodRequestStatus.APPROVED;
     this.updatedAt = new Date();
@@ -66,7 +66,7 @@ export class FoodRequest {
 
   reject(): void {
     if (this.status !== FoodRequestStatus.PENDING) {
-      throw new Error('Only pending requests can be rejected');
+      throw new Error("Only pending requests can be rejected");
     }
     this.status = FoodRequestStatus.REJECTED;
     this.updatedAt = new Date();
@@ -74,7 +74,7 @@ export class FoodRequest {
 
   fulfill(): void {
     if (this.status !== FoodRequestStatus.APPROVED) {
-      throw new Error('Only approved requests can be fulfilled');
+      throw new Error("Only approved requests can be fulfilled");
     }
     this.status = FoodRequestStatus.FULFILLED;
     this.updatedAt = new Date();
@@ -82,7 +82,7 @@ export class FoodRequest {
 
   cancel(): void {
     if (this.status === FoodRequestStatus.FULFILLED) {
-      throw new Error('Fulfilled requests cannot be cancelled');
+      throw new Error("Fulfilled requests cannot be cancelled");
     }
     this.status = FoodRequestStatus.CANCELLED;
     this.updatedAt = new Date();

@@ -1,4 +1,4 @@
-import { FoodItemId } from '../value-objects/food-item-id';
+import { FoodItemId } from "../value-objects/food-item-id";
 
 export class FoodItem {
   constructor(
@@ -6,16 +6,16 @@ export class FoodItem {
     private readonly name: string,
     private readonly description: string,
     private readonly price: number,
-    private readonly category: string
+    private readonly category: string,
   ) {
     if (!name || name.trim().length === 0) {
-      throw new Error('Food item name cannot be empty');
+      throw new Error("Food item name cannot be empty");
     }
     if (price < 0) {
-      throw new Error('Price cannot be negative');
+      throw new Error("Price cannot be negative");
     }
     if (!category || category.trim().length === 0) {
-      throw new Error('Category cannot be empty');
+      throw new Error("Category cannot be empty");
     }
   }
 

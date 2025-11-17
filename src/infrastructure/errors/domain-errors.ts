@@ -1,30 +1,32 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 
 export class FoodRequestNotFoundError extends Error {
   constructor(id: string) {
     super(`Food request with ID ${id} not found`);
-    this.name = 'FoodRequestNotFoundError';
+    this.name = "FoodRequestNotFoundError";
   }
 }
 
 export class InvalidFoodRequestStatusError extends Error {
   constructor(currentStatus: string, attemptedAction: string) {
-    super(`Cannot ${attemptedAction} food request with status ${currentStatus}`);
-    this.name = 'InvalidFoodRequestStatusError';
+    super(
+      `Cannot ${attemptedAction} food request with status ${currentStatus}`,
+    );
+    this.name = "InvalidFoodRequestStatusError";
   }
 }
 
 export class InvalidFoodItemError extends Error {
   constructor(foodItemId: string) {
     super(`Food item with ID ${foodItemId} is invalid or not found`);
-    this.name = 'InvalidFoodItemError';
+    this.name = "InvalidFoodItemError";
   }
 }
 
 export class ValidationError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
   }
 }
 
@@ -32,16 +34,19 @@ export class ValidationError extends Error {
 export class ErrorHandler {
   static handleDomainError(error: Error): HttpException {
     switch (error.name) {
-      case 'FoodRequestNotFoundError':
+      case "FoodRequestNotFoundError":
         return new HttpException(error.message, HttpStatus.NOT_FOUND);
-      case 'InvalidFoodRequestStatusError':
+      case "InvalidFoodRequestStatusError":
         return new HttpException(error.message, HttpStatus.BAD_REQUEST);
-      case 'InvalidFoodItemError':
+      case "InvalidFoodItemError":
         return new HttpException(error.message, HttpStatus.BAD_REQUEST);
-      case 'ValidationError':
+      case "ValidationError":
         return new HttpException(error.message, HttpStatus.BAD_REQUEST);
       default:
-        return new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
+        return new HttpException(
+          "Internal server error",
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
     }
   }
 }

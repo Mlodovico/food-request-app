@@ -1,7 +1,7 @@
 export class FoodItemId {
   constructor(private readonly value: string) {
     if (!value || value.trim().length === 0) {
-      throw new Error('FoodItemId cannot be empty');
+      throw new Error("FoodItemId cannot be empty");
     }
   }
 

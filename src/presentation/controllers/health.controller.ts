@@ -1,7 +1,6 @@
 import { CircuitBreakerService } from "@infrastructure/service/circuit-breaker.service";
 import { Controller, Get } from "@nestjs/common";
 
-
 @Controller("health")
 export class HealthController {
   constructor(private readonly circuitBreakerService: CircuitBreakerService) {}

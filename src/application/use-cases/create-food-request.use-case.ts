@@ -14,7 +14,7 @@ export class CreateFoodRequestUseCase implements CreateFoodRequestPort {
   constructor(
     @Inject("FoodRequestRepository")
     private readonly foodRequestRepository: FoodRequestRepository,
-    private readonly foodItemService: FoodItemService
+    private readonly foodItemService: FoodItemService,
   ) {}
 
   async createFoodRequest(
@@ -24,7 +24,7 @@ export class CreateFoodRequestUseCase implements CreateFoodRequestPort {
       quantity: number;
       specialInstructions?: string;
     }>,
-    notes?: string
+    notes?: string,
   ): Promise<FoodRequest> {
     // Validate food items exist
     const isValid = await this.foodItemService.validateFoodItems(items);
@@ -41,8 +41,8 @@ export class CreateFoodRequestUseCase implements CreateFoodRequestPort {
         new FoodRequestItem(
           new FoodItemId(item.foodItemId),
           new Quantity(item.quantity),
-          item.specialInstructions
-        )
+          item.specialInstructions,
+        ),
     );
 
     // Generate unique request ID
@@ -57,7 +57,7 @@ export class CreateFoodRequestUseCase implements CreateFoodRequestPort {
       new Date(),
       new Date(),
       totalAmount,
-      notes
+      notes,
     );
 
     // Save to repository

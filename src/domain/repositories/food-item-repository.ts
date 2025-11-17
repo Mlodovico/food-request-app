@@ -1,5 +1,5 @@
-import { FoodItem } from '../entities/food-item';
-import { FoodItemId } from '../value-objects/food-item-id';
+import { FoodItem } from "../entities/food-item";
+import { FoodItemId } from "../value-objects/food-item-id";
 
 export interface FoodItemRepository {
   save(foodItem: FoodItem): Promise<void>;

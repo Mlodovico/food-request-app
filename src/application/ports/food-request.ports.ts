@@ -1,8 +1,8 @@
-import { FoodRequest } from '@domain/entities/food-request';
-import { FoodRequestItem } from '@domain/entities/food-request-item';
-import { RequestId } from '@domain/value-objects/request-id';
-import { FoodItemId } from '@domain/value-objects/food-item-id';
-import { Quantity } from '@domain/value-objects/quantity';
+import { FoodRequest } from "@domain/entities/food-request";
+import { FoodRequestItem } from "@domain/entities/food-request-item";
+import { RequestId } from "@domain/value-objects/request-id";
+import { FoodItemId } from "@domain/value-objects/food-item-id";
+import { Quantity } from "@domain/value-objects/quantity";
 
 export interface CreateFoodRequestPort {
   createFoodRequest(
@@ -12,7 +12,7 @@ export interface CreateFoodRequestPort {
       quantity: number;
       specialInstructions?: string;
     }>,
-    notes?: string
+    notes?: string,
   ): Promise<FoodRequest>;
 }
 
@@ -29,6 +29,10 @@ export interface UpdateFoodRequestStatusPort {
 }
 
 export interface FoodItemServicePort {
-  validateFoodItems(items: Array<{ foodItemId: string; quantity: number }>): Promise<boolean>;
-  calculateTotalAmount(items: Array<{ foodItemId: string; quantity: number }>): Promise<number>;
+  validateFoodItems(
+    items: Array<{ foodItemId: string; quantity: number }>,
+  ): Promise<boolean>;
+  calculateTotalAmount(
+    items: Array<{ foodItemId: string; quantity: number }>,
+  ): Promise<number>;
 }

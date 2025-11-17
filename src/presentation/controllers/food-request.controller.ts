@@ -1,9 +1,23 @@
-import { Controller, Post, Get, Put, Body, Param, HttpStatus, HttpCode, NotFoundException, BadRequestException } from '@nestjs/common';
-import { CreateFoodRequestDto } from '../dto/create-food-request.dto';
-import { FoodRequestResponseDto, FoodRequestItemResponseDto } from '../dto/food-request-response.dto';
-import { CreateFoodRequestUseCase } from '@application/use-cases/create-food-request.use-case';
-import { GetFoodRequestUseCase } from '@application/use-cases/get-food-request.use-case';
-import { UpdateFoodRequestStatusUseCase } from '@application/use-cases/update-food-request-status.use-case';
+import {
+  Controller,
+  Post,
+  Get,
+  Put,
+  Body,
+  Param,
+  HttpStatus,
+  HttpCode,
+  NotFoundException,
+  BadRequestException,
+} from "@nestjs/common";
+import { CreateFoodRequestDto } from "../dto/create-food-request.dto";
+import {
+  FoodRequestResponseDto,
+  FoodRequestItemResponseDto,
+} from "../dto/food-request-response.dto";
+import { CreateFoodRequestUseCase } from "@application/use-cases/create-food-request.use-case";
+import { GetFoodRequestUseCase } from "@application/use-cases/get-food-request.use-case";
+import { UpdateFoodRequestStatusUseCase } from "@application/use-cases/update-food-request-status.use-case";
 import { Throttle } from "@nestjs/throttler";
 
 @Controller("food-requests")
@@ -11,20 +25,20 @@ export class FoodRequestController {
   constructor(
     private readonly createFoodRequestUseCase: CreateFoodRequestUseCase,
     private readonly getFoodRequestUseCase: GetFoodRequestUseCase,
-    private readonly updateFoodRequestStatusUseCase: UpdateFoodRequestStatusUseCase
+    private readonly updateFoodRequestStatusUseCase: UpdateFoodRequestStatusUseCase,
   ) {}
 
   @Post("order")
   @Throttle({ short: { limit: 5, ttl: 1000 } })
   @HttpCode(HttpStatus.CREATED)
   async createFoodRequest(
-    @Body() createFoodRequestDto: CreateFoodRequestDto
+    @Body() createFoodRequestDto: CreateFoodRequestDto,
   ): Promise<FoodRequestResponseDto> {
     try {
       const foodRequest = await this.createFoodRequestUseCase.createFoodRequest(
         createFoodRequestDto.customerId,
         createFoodRequestDto.items,
-        createFoodRequestDto.notes
+        createFoodRequestDto.notes,
       );
 
       return this.mapToResponseDto(foodRequest);
@@ -36,7 +50,7 @@ export class FoodRequestController {
   @Get("get-order/:id")
   @Throttle({ long: { limit: 60, ttl: 1000 } })
   async getFoodRequestById(
-    @Param("id") id: string
+    @Param("id") id: string,
   ): Promise<FoodRequestResponseDto> {
     const foodRequest = await this.getFoodRequestUseCase.getFoodRequestById(id);
 
@@ -50,7 +64,7 @@ export class FoodRequestController {
   @Get("customer/:customerId")
   @Throttle({ medium: { limit: 20, ttl: 1000 } })
   async getFoodRequestsByCustomerId(
-    @Param("customerId") customerId: string
+    @Param("customerId") customerId: string,
   ): Promise<FoodRequestResponseDto[]> {
     const foodRequests =
       await this.getFoodRequestUseCase.getFoodRequestsByCustomerId(customerId);
@@ -110,8 +124,8 @@ export class FoodRequestController {
           new FoodRequestItemResponseDto(
             item.getFoodItemId().getValue(),
             item.getQuantity().getValue(),
-            item.getSpecialInstructions()
-          )
+            item.getSpecialInstructions(),
+          ),
       );
 
     return new FoodRequestResponseDto(
@@ -122,7 +136,7 @@ export class FoodRequestController {
       foodRequest.getCreatedAt(),
       foodRequest.getUpdatedAt(),
       foodRequest.getTotalAmount(),
-      foodRequest.getNotes()
+      foodRequest.getNotes(),
     );
   }
 }

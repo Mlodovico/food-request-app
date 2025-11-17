@@ -19,8 +19,8 @@ const in_memory_food_item_repository_1 = require("./infrastructure/adapters/in-m
 const throttler_1 = require("@nestjs/throttler");
 const throttler_config_1 = require("./infrastructure/middleware/throttler.config");
 const core_1 = require("@nestjs/core");
-const circuit_breaker_service_1 = require("./infrastructure/service/circuit-breaker.service");
-const circuit_breaker_interceptor_1 = require("./infrastructure/interceptors/circuit-breaker.interceptor");
+const circuit_breaker_service_1 = require("@infrastructure/service/circuit-breaker.service");
+const circuit_breaker_interceptor_1 = require("@infrastructure/interceptors/circuit-breaker.interceptor");
 const health_controller_1 = require("./presentation/controllers/health.controller");
 let FoodRequestModule = class FoodRequestModule {
 };

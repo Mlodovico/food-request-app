@@ -1,10 +1,10 @@
 export class Quantity {
   constructor(private readonly value: number) {
     if (value <= 0) {
-      throw new Error('Quantity must be greater than 0');
+      throw new Error("Quantity must be greater than 0");
     }
     if (!Number.isInteger(value)) {
-      throw new Error('Quantity must be an integer');
+      throw new Error("Quantity must be an integer");
     }
   }
 

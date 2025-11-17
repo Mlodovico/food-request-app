@@ -3,7 +3,11 @@ export class FoodRequestItemResponseDto {
   quantity: number;
   specialInstructions?: string;
 
-  constructor(foodItemId: string, quantity: number, specialInstructions?: string) {
+  constructor(
+    foodItemId: string,
+    quantity: number,
+    specialInstructions?: string,
+  ) {
     this.foodItemId = foodItemId;
     this.quantity = quantity;
     this.specialInstructions = specialInstructions;
@@ -28,7 +32,7 @@ export class FoodRequestResponseDto {
     createdAt: Date,
     updatedAt: Date,
     totalAmount: number,
-    notes?: string
+    notes?: string,
   ) {
     this.id = id;
     this.customerId = customerId;

@@ -1,11 +1,11 @@
-import { FoodItemId } from '../value-objects/food-item-id';
-import { Quantity } from '../value-objects/quantity';
+import { FoodItemId } from "../value-objects/food-item-id";
+import { Quantity } from "../value-objects/quantity";
 
 export class FoodRequestItem {
   constructor(
     private readonly foodItemId: FoodItemId,
     private readonly quantity: Quantity,
-    private readonly specialInstructions?: string
+    private readonly specialInstructions?: string,
   ) {}
 
   getFoodItemId(): FoodItemId {

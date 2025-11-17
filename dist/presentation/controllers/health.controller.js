@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HealthController = void 0;
-const circuit_breaker_service_1 = require("../../infrastructure/service/circuit-breaker.service");
+const circuit_breaker_service_1 = require("@infrastructure/service/circuit-breaker.service");
 const common_1 = require("@nestjs/common");
 let HealthController = class HealthController {
     constructor(circuitBreakerService) {
@@ -39,6 +40,6 @@ __decorate([
 ], HealthController.prototype, "getCircuitBreakerStatus", null);
 exports.HealthController = HealthController = __decorate([
     (0, common_1.Controller)("health"),
-    __metadata("design:paramtypes", [circuit_breaker_service_1.CircuitBreakerService])
+    __metadata("design:paramtypes", [typeof (_a = typeof circuit_breaker_service_1.CircuitBreakerService !== "undefined" && circuit_breaker_service_1.CircuitBreakerService) === "function" ? _a : Object])
 ], HealthController);
 //# sourceMappingURL=health.controller.js.map
