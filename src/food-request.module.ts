@@ -9,7 +9,7 @@ import { InMemoryFoodRequestRepository } from "@infrastructure/adapters/in-memor
 import { InMemoryFoodItemRepository } from "@infrastructure/adapters/in-memory-food-item-repository";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { throttlerConfig } from "@infrastructure/middleware/throttler.config";
-import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_GUARD } from "@nestjs/core";
 
 @Module({
   imports: [ThrottlerModule.forRoot(throttlerConfig)],
