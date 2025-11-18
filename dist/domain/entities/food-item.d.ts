@@ -1,4 +1,4 @@
-import { FoodItemId } from '../value-objects/food-item-id';
+import { FoodItemId } from "../value-objects/food-item-id";
 export declare class FoodItem {
     private readonly id;
     private readonly name;

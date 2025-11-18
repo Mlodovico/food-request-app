@@ -31,19 +31,19 @@ let FoodItemController = class FoodItemController {
     }
     async getAllFoodItems() {
         const foodItems = await this.foodItemRepository.findAll();
-        return foodItems.map(item => new FoodItemResponseDto(item.getId().getValue(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory()));
+        return foodItems.map((item) => new FoodItemResponseDto(item.getId().getValue(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory()));
     }
     async getFoodItemById(id) {
         const foodItemId = new food_item_id_1.FoodItemId(id);
         const foodItem = await this.foodItemRepository.findById(foodItemId);
         if (!foodItem) {
-            throw new Error('Food item not found');
+            throw new Error("Food item not found");
         }
         return new FoodItemResponseDto(foodItem.getId().getValue(), foodItem.getName(), foodItem.getDescription(), foodItem.getPrice(), foodItem.getCategory());
     }
     async getFoodItemsByCategory(category) {
         const foodItems = await this.foodItemRepository.findByCategory(category);
-        return foodItems.map(item => new FoodItemResponseDto(item.getId().getValue(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory()));
+        return foodItems.map((item) => new FoodItemResponseDto(item.getId().getValue(), item.getName(), item.getDescription(), item.getPrice(), item.getCategory()));
     }
 };
 exports.FoodItemController = FoodItemController;
@@ -54,22 +54,22 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FoodItemController.prototype, "getAllFoodItems", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FoodItemController.prototype, "getFoodItemById", null);
 __decorate([
-    (0, common_1.Get)('category/:category'),
-    __param(0, (0, common_1.Param)('category')),
+    (0, common_1.Get)("category/:category"),
+    __param(0, (0, common_1.Param)("category")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FoodItemController.prototype, "getFoodItemsByCategory", null);
 exports.FoodItemController = FoodItemController = __decorate([
-    (0, common_1.Controller)('food-items'),
-    __param(0, (0, common_1.Inject)('FoodItemRepository')),
+    (0, common_1.Controller)("food-items"),
+    __param(0, (0, common_1.Inject)("FoodItemRepository")),
     __metadata("design:paramtypes", [Object])
 ], FoodItemController);
 //# sourceMappingURL=food-item.controller.js.map

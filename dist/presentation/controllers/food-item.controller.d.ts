@@ -1,4 +1,4 @@
-import { FoodItemRepository } from '@domain/repositories/food-item-repository';
+import { FoodItemRepository } from "@domain/repositories/food-item-repository";
 export declare class FoodItemResponseDto {
     id: string;
     name: string;

@@ -5,7 +5,7 @@ class FoodItemId {
     constructor(value) {
         this.value = value;
         if (!value || value.trim().length === 0) {
-            throw new Error('FoodItemId cannot be empty');
+            throw new Error("FoodItemId cannot be empty");
         }
     }
     getValue() {

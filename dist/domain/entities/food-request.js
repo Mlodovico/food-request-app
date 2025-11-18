@@ -13,13 +13,13 @@ class FoodRequest {
         this.totalAmount = totalAmount;
         this.notes = notes;
         if (!customerId || customerId.trim().length === 0) {
-            throw new Error('Customer ID cannot be empty');
+            throw new Error("Customer ID cannot be empty");
         }
         if (!items || items.length === 0) {
-            throw new Error('Food request must have at least one item');
+            throw new Error("Food request must have at least one item");
         }
         if (totalAmount < 0) {
-            throw new Error('Total amount cannot be negative');
+            throw new Error("Total amount cannot be negative");
         }
     }
     getId() {
@@ -48,28 +48,28 @@ class FoodRequest {
     }
     approve() {
         if (this.status !== food_request_status_1.FoodRequestStatus.PENDING) {
-            throw new Error('Only pending requests can be approved');
+            throw new Error("Only pending requests can be approved");
         }
         this.status = food_request_status_1.FoodRequestStatus.APPROVED;
         this.updatedAt = new Date();
     }
     reject() {
         if (this.status !== food_request_status_1.FoodRequestStatus.PENDING) {
-            throw new Error('Only pending requests can be rejected');
+            throw new Error("Only pending requests can be rejected");
         }
         this.status = food_request_status_1.FoodRequestStatus.REJECTED;
         this.updatedAt = new Date();
     }
     fulfill() {
         if (this.status !== food_request_status_1.FoodRequestStatus.APPROVED) {
-            throw new Error('Only approved requests can be fulfilled');
+            throw new Error("Only approved requests can be fulfilled");
         }
         this.status = food_request_status_1.FoodRequestStatus.FULFILLED;
         this.updatedAt = new Date();
     }
     cancel() {
         if (this.status === food_request_status_1.FoodRequestStatus.FULFILLED) {
-            throw new Error('Fulfilled requests cannot be cancelled');
+            throw new Error("Fulfilled requests cannot be cancelled");
         }
         this.status = food_request_status_1.FoodRequestStatus.CANCELLED;
         this.updatedAt = new Date();

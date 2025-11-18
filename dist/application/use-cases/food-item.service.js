@@ -44,7 +44,7 @@ let FoodItemService = class FoodItemService {
 exports.FoodItemService = FoodItemService;
 exports.FoodItemService = FoodItemService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('FoodItemRepository')),
+    __param(0, (0, common_1.Inject)("FoodItemRepository")),
     __metadata("design:paramtypes", [Object])
 ], FoodItemService);
 //# sourceMappingURL=food-item.service.js.map

@@ -1,4 +1,4 @@
-import { HttpException } from '@nestjs/common';
+import { HttpException } from "@nestjs/common";
 export declare class FoodRequestNotFoundError extends Error {
     constructor(id: string);
 }

@@ -10,26 +10,16 @@ import { InMemoryFoodItemRepository } from "@infrastructure/adapters/in-memory-f
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { throttlerConfig } from "@infrastructure/middleware/throttler.config";
 import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
-import { CircuitBreakerService } from "@infrastructure/service/circuit-breaker.service";
-import { CircuitBreakerInterceptor } from "@infrastructure/interceptors/circuit-breaker.interceptor";
-import { HealthController } from "@presentation/controllers/health.controller";
 
 @Module({
   imports: [ThrottlerModule.forRoot(throttlerConfig)],
-  controllers: [FoodRequestController, FoodItemController, HealthController],
+  controllers: [FoodRequestController, FoodItemController],
   providers: [
     // Use Cases
     CreateFoodRequestUseCase,
     GetFoodRequestUseCase,
     UpdateFoodRequestStatusUseCase,
     FoodItemService,
-
-    // Circuit Breaker
-    CircuitBreakerService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CircuitBreakerInterceptor,
-    },
 
     // Rate Limiter
     {

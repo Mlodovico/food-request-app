@@ -1,7 +1,7 @@
-import { FoodRequest } from '@domain/entities/food-request';
-import { RequestId } from '@domain/value-objects/request-id';
-import { FoodRequestStatus } from '@domain/value-objects/food-request-status';
-import { FoodRequestRepository } from '@domain/repositories/food-request-repository';
+import { FoodRequest } from "@domain/entities/food-request";
+import { RequestId } from "@domain/value-objects/request-id";
+import { FoodRequestStatus } from "@domain/value-objects/food-request-status";
+import { FoodRequestRepository } from "@domain/repositories/food-request-repository";
 export declare class PostgresFoodRequestRepository implements FoodRequestRepository {
     private pool;
     constructor();

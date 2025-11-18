@@ -1,4 +1,4 @@
-import { FoodRequest } from '@domain/entities/food-request';
+import { FoodRequest } from "@domain/entities/food-request";
 export interface CreateFoodRequestPort {
     createFoodRequest(customerId: string, items: Array<{
         foodItemId: string;

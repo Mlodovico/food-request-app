@@ -9,13 +9,13 @@ class FoodItem {
         this.price = price;
         this.category = category;
         if (!name || name.trim().length === 0) {
-            throw new Error('Food item name cannot be empty');
+            throw new Error("Food item name cannot be empty");
         }
         if (price < 0) {
-            throw new Error('Price cannot be negative');
+            throw new Error("Price cannot be negative");
         }
         if (!category || category.trim().length === 0) {
-            throw new Error('Category cannot be empty');
+            throw new Error("Category cannot be empty");
         }
     }
     getId() {

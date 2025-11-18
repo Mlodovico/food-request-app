@@ -1,5 +1,5 @@
-import { FoodItemRepository } from '@domain/repositories/food-item-repository';
-import { FoodItemServicePort } from '../ports/food-request.ports';
+import { FoodItemRepository } from "@domain/repositories/food-item-repository";
+import { FoodItemServicePort } from "../ports/food-request.ports";
 export declare class FoodItemService implements FoodItemServicePort {
     private readonly foodItemRepository;
     constructor(foodItemRepository: FoodItemRepository);

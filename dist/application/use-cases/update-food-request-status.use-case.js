@@ -23,7 +23,7 @@ let UpdateFoodRequestStatusUseCase = class UpdateFoodRequestStatusUseCase {
         const requestId = new request_id_1.RequestId(id);
         const foodRequest = await this.foodRequestRepository.findById(requestId);
         if (!foodRequest) {
-            throw new Error('Food request not found');
+            throw new Error("Food request not found");
         }
         foodRequest.approve();
         await this.foodRequestRepository.save(foodRequest);
@@ -32,7 +32,7 @@ let UpdateFoodRequestStatusUseCase = class UpdateFoodRequestStatusUseCase {
         const requestId = new request_id_1.RequestId(id);
         const foodRequest = await this.foodRequestRepository.findById(requestId);
         if (!foodRequest) {
-            throw new Error('Food request not found');
+            throw new Error("Food request not found");
         }
         foodRequest.reject();
         await this.foodRequestRepository.save(foodRequest);
@@ -41,7 +41,7 @@ let UpdateFoodRequestStatusUseCase = class UpdateFoodRequestStatusUseCase {
         const requestId = new request_id_1.RequestId(id);
         const foodRequest = await this.foodRequestRepository.findById(requestId);
         if (!foodRequest) {
-            throw new Error('Food request not found');
+            throw new Error("Food request not found");
         }
         foodRequest.fulfill();
         await this.foodRequestRepository.save(foodRequest);
@@ -50,7 +50,7 @@ let UpdateFoodRequestStatusUseCase = class UpdateFoodRequestStatusUseCase {
         const requestId = new request_id_1.RequestId(id);
         const foodRequest = await this.foodRequestRepository.findById(requestId);
         if (!foodRequest) {
-            throw new Error('Food request not found');
+            throw new Error("Food request not found");
         }
         foodRequest.cancel();
         await this.foodRequestRepository.save(foodRequest);
@@ -59,7 +59,7 @@ let UpdateFoodRequestStatusUseCase = class UpdateFoodRequestStatusUseCase {
 exports.UpdateFoodRequestStatusUseCase = UpdateFoodRequestStatusUseCase;
 exports.UpdateFoodRequestStatusUseCase = UpdateFoodRequestStatusUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('FoodRequestRepository')),
+    __param(0, (0, common_1.Inject)("FoodRequestRepository")),
     __metadata("design:paramtypes", [Object])
 ], UpdateFoodRequestStatusUseCase);
 //# sourceMappingURL=update-food-request-status.use-case.js.map

@@ -1,5 +1,5 @@
-import { FoodItemId } from '../value-objects/food-item-id';
-import { Quantity } from '../value-objects/quantity';
+import { FoodItemId } from "../value-objects/food-item-id";
+import { Quantity } from "../value-objects/quantity";
 export declare class FoodRequestItem {
     private readonly foodItemId;
     private readonly quantity;

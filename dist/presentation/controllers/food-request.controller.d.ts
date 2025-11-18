@@ -1,8 +1,8 @@
-import { CreateFoodRequestDto } from '../dto/create-food-request.dto';
-import { FoodRequestResponseDto } from '../dto/food-request-response.dto';
-import { CreateFoodRequestUseCase } from '@application/use-cases/create-food-request.use-case';
-import { GetFoodRequestUseCase } from '@application/use-cases/get-food-request.use-case';
-import { UpdateFoodRequestStatusUseCase } from '@application/use-cases/update-food-request-status.use-case';
+import { CreateFoodRequestDto } from "../dto/create-food-request.dto";
+import { FoodRequestResponseDto } from "../dto/food-request-response.dto";
+import { CreateFoodRequestUseCase } from "@application/use-cases/create-food-request.use-case";
+import { GetFoodRequestUseCase } from "@application/use-cases/get-food-request.use-case";
+import { UpdateFoodRequestStatusUseCase } from "@application/use-cases/update-food-request-status.use-case";
 export declare class FoodRequestController {
     private readonly createFoodRequestUseCase;
     private readonly getFoodRequestUseCase;

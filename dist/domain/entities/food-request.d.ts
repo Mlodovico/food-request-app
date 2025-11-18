@@ -1,6 +1,6 @@
-import { RequestId } from '../value-objects/request-id';
-import { FoodRequestStatus } from '../value-objects/food-request-status';
-import { FoodRequestItem } from './food-request-item';
+import { RequestId } from "../value-objects/request-id";
+import { FoodRequestStatus } from "../value-objects/food-request-status";
+import { FoodRequestItem } from "./food-request-item";
 export declare class FoodRequest {
     private readonly id;
     private readonly customerId;

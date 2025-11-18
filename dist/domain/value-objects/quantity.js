@@ -5,10 +5,10 @@ class Quantity {
     constructor(value) {
         this.value = value;
         if (value <= 0) {
-            throw new Error('Quantity must be greater than 0');
+            throw new Error("Quantity must be greater than 0");
         }
         if (!Number.isInteger(value)) {
-            throw new Error('Quantity must be an integer');
+            throw new Error("Quantity must be an integer");
         }
     }
     getValue() {

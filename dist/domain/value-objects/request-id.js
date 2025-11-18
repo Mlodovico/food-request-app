@@ -5,7 +5,7 @@ class RequestId {
     constructor(value) {
         this.value = value;
         if (!value || value.trim().length === 0) {
-            throw new Error('RequestId cannot be empty');
+            throw new Error("RequestId cannot be empty");
         }
     }
     getValue() {

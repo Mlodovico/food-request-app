@@ -30,7 +30,7 @@ let GetFoodRequestUseCase = class GetFoodRequestUseCase {
 exports.GetFoodRequestUseCase = GetFoodRequestUseCase;
 exports.GetFoodRequestUseCase = GetFoodRequestUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)('FoodRequestRepository')),
+    __param(0, (0, common_1.Inject)("FoodRequestRepository")),
     __metadata("design:paramtypes", [Object])
 ], GetFoodRequestUseCase);
 //# sourceMappingURL=get-food-request.use-case.js.map

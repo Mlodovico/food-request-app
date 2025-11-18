@@ -19,12 +19,10 @@ let InMemoryFoodRequestRepository = class InMemoryFoodRequestRepository {
         return this.foodRequests.get(id.getValue()) || null;
     }
     async findByCustomerId(customerId) {
-        return Array.from(this.foodRequests.values())
-            .filter(request => request.getCustomerId() === customerId);
+        return Array.from(this.foodRequests.values()).filter((request) => request.getCustomerId() === customerId);
     }
     async findByStatus(status) {
-        return Array.from(this.foodRequests.values())
-            .filter(request => request.getStatus() === status);
+        return Array.from(this.foodRequests.values()).filter((request) => request.getStatus() === status);
     }
     async findAll() {
         return Array.from(this.foodRequests.values());
